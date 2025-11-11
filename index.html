@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.0/jspdf.plugin.autotable.min.js"></script>
    <style>
-  /* ---------- Fond d’écran ---------- */
+  /* ---------- Fond d’écran principal ---------- */
   html, body {
     height: 100%;
     margin: 0;
@@ -17,12 +17,14 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: url('Background.png') no-repeat center center fixed;
-    background-size: cover;              /* desktop : plein écran */
+    background-size: cover;               /* plein écran */
     background-position: center top;
     color: white;
     min-height: 100vh;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;  /* 🎬 transition fluide */
   }
-  /* Assombrissement + léger flou pour la lisibilité du contenu */
+  /* Assombrissement et flou pour la lisibilité du texte */
   body::before {
     content: "";
     position: fixed; inset: 0;
@@ -30,20 +32,22 @@
     backdrop-filter: blur(2px);
     z-index: -1;
   }
-  /* Conteneur principal */
+
+  /* Conteneur global */
   #app {
     background: rgba(0,0,0,0.35);
     min-height: 100vh;
     padding-bottom: 50px;
   }
 
-  /* ---------- Effet verre dépoli (glass) ---------- */
+  /* ---------- Effet verre dépoli ---------- */
   .bg-white {
     background-color: rgba(255,255,255,0.14) !important;
     -webkit-backdrop-filter: blur(10px) saturate(120%);
     backdrop-filter: blur(10px) saturate(120%);
     border: 1px solid rgba(255,255,255,0.22);
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    transition: all 0.4s ease;
   }
   .bg-blue-600 {
     background-color: rgba(37,99,235,0.80) !important;
@@ -62,7 +66,9 @@
     background-color: #fff !important;
     border: 1px solid #d1d5db !important;
   }
-  input::placeholder, textarea::placeholder { color: #666 !important; }
+  input::placeholder, textarea::placeholder {
+    color: #666 !important;
+  }
   input:focus, textarea:focus, select:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(59,130,246,0.35);
@@ -73,8 +79,8 @@
   @media (max-width: 768px) {
     body {
       background: url('Background.png') no-repeat center center fixed;
-      background-size: contain;          /* mobile : ne pas couper l’image */
-      background-color: #000;            /* bandes propres autour si besoin */
+      background-size: contain;           /* mobile : éviter le rognage */
+      background-color: #000;
     }
     #app {
       background: rgba(0,0,0,0.6);
@@ -85,7 +91,14 @@
       backdrop-filter: blur(12px) saturate(120%);
     }
   }
+
+  /* ---------- Animation fade-in ---------- */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 </style>
+
 
 
 
